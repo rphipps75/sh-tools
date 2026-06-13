@@ -24,13 +24,13 @@ LOGGING_COLOUR_WHITE_ON_RED="\033[37;41m"   # White text on red background (for 
 
 LOGGING_USE_TYPE_PREFIX="${LOGGING_USE_TYPE_PREFIX:-true}"
 LOGGING_USE_EMOJI="${LOGGING_USE_EMOJI:-false}"
-LOGGING_EMOJI_WARN="⚠️"
-LOGGING_EMOJI_ERROR="❌"
-LOGGING_EMOJI_FAIL="💥"
-LOGGING_EMOJI_SUCCESS="✅"
-LOGGING_EMOJI_INFO="ℹ️"
-LOGGING_EMOJI_DEBUG="🔧"
-LOGGING_EMOJI_TRACE="🔍"
+LOGGING_EMOJI_WARN="${LOGGING_EMOJI_WARN:-⚠️}"
+LOGGING_EMOJI_ERROR="${LOGGING_EMOJI_ERROR:-❌}"
+LOGGING_EMOJI_FAIL="${LOGGING_EMOJI_FAIL:-💥}"
+LOGGING_EMOJI_SUCCESS="${LOGGING_EMOJI_SUCCESS:-✅}"
+LOGGING_EMOJI_INFO="${LOGGING_EMOJI_INFO:-ℹ️}"
+LOGGING_EMOJI_DEBUG="${LOGGING_EMOJI_DEBUG:-🔧}"
+LOGGING_EMOJI_TRACE="${LOGGING_EMOJI_TRACE:-🔍}"
 
 # Set default log level if not already set:
 # 0=TRACE, 1=DEBUG, 2=INFO, 3=WARN, 4=ERROR, 5=FAIL, 6=OFF
@@ -39,16 +39,17 @@ LOGGING_LEVEL="${LOGGING_LEVEL:-2}"
 # Outputs the current UTC timestamp in format: YYYY-MM-DD HH:MM:SS.mmm (UTC)
 # Suffixes a trailing space
 # Usage: $(_log_date)
+# Outputs the current UTC timestamp
 _log_date () {
   if [ -n "${EPOCHREALTIME}" ]; then
     printf "%(%%Y-%%m-%%d %%H:%%M:%%S)T.%s (UTC) " -1 "${EPOCHREALTIME#*.00}" | cut -c1-29
   else
-    # Better macOS compatibility gate check
-    if date +%N | grep -q 'N'; then
-      # macOS BSD date fallback - strip out the unparseable %3N token cleanly
+    # Corrected macOS BSD date fallback check
+    if date +%N 2>&1 | grep -q 'N'; then
+      # macOS BSD date fallback - no millisecond precision available natively
       date -u +"%Y-%m-%d %H:%M:%S (UTC) "
     else
-      date -u +"%Y-%m-%d %H:%M:%S.%3N (%Z) "
+      date -u +"%Y-%m-%d %H:%M:%S.%3N (UTC) "
     fi
   fi
 }
@@ -106,7 +107,7 @@ _log () {
     return 0
   fi
 
-  # %b so colour tokens inside the message variable render correctly
+  # %b %b so the message variables can process raw ANSI colour variables
   printf '%b%b\n' "$(_log_date)$(_log_type "$level_name")$(_log_emoji "$level_name")" "$message"
 }
 

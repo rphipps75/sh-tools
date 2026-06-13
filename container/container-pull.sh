@@ -191,7 +191,7 @@ check_image_age_limits() {
   fi
 
   if [ $days -lt $warn_red ]; then
-    log_fail "❌ ${LOGGING_COLOUR_WHITE_ON_RED}${msg}${LOGGING_COLOUR_RESET} - too recent, skipping pull"
+    log_fail "❌ ${LOGGING_COLOUR_RED}${msg}${LOGGING_COLOUR_RESET} - too recent, skipping pull"
     log_blank
     exit 1
   elif [ $days -lt $warn_orange ]; then
