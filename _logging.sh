@@ -40,14 +40,12 @@ LOGGING_LEVEL="${LOGGING_LEVEL:-2}"
 # Suffixes a trailing space
 # Usage: $(_log_date)
 _log_date () {
-  # If Bash supports EPOCHREALTIME, use it to get milliseconds natively
   if [ -n "${EPOCHREALTIME}" ]; then
-    # Format the date up to seconds using strftime
     printf "%(%%Y-%%m-%%d %%H:%%M:%%S)T.%s (UTC) " -1 "${EPOCHREALTIME#*.00}" | cut -c1-29
   else
-    # Fallback to standard date if not in a capable Bash environment
-    # (Will omit milliseconds on macOS but won't print raw '%3N')
+    # Better macOS compatibility gate check
     if date +%N | grep -q 'N'; then
+      # macOS BSD date fallback - strip out the unparseable %3N token cleanly
       date -u +"%Y-%m-%d %H:%M:%S (UTC) "
     else
       date -u +"%Y-%m-%d %H:%M:%S.%3N (%Z) "
@@ -108,8 +106,8 @@ _log () {
     return 0
   fi
 
-  # The %s ensures the log message ($2) is printed exactly as a literal string
-  printf '%b%s\n' "$(_log_date)$(_log_type "$level_name")$(_log_emoji "$level_name")" "$message"
+  # %b so colour tokens inside the message variable render correctly
+  printf '%b%b\n' "$(_log_date)$(_log_type "$level_name")$(_log_emoji "$level_name")" "$message"
 }
 
 log_info ()    { _log "INFO" "$1"; }
