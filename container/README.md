@@ -12,11 +12,16 @@ A bash script designed for macOS and Unix environments to safely pull container 
 
 ### Features
 
-- __Multi-Registry Support:__ Automatically parses and checks image metadata across Docker Hub, GitHub Container Registry (`ghcr.io`), Google Container Registry (`gcr.io`), and Hardened Docker Images (`dhi.io`).
-- __Intelligent Age Safeguards:__ Blocks or warns you based on the image's age using fully customisable thresholds.
-- __Local Cache Comparison:__ Interrogates your local engine to see if the remote image is newer, identical, or older than your cached copy before downloading.
-- __Native macOS Compatibility:__ Auto-detects BSD `date` (default on macOS) vs GNU `date` to ensure robust epoch parsing without crashing.
-- __Resilient Logging:__ Plugs into an external logging framework if present, with a seamless standalone fallback mechanism.
+- __Multi-Registry Support__
+  - Automatically parses and checks image metadata across Docker Hub, GitHub Container Registry (`ghcr.io`), Google Container Registry (`gcr.io`), and Hardened Docker Images (`dhi.io`).
+- __Intelligent Age Safeguards__
+  - Blocks or warns you based on the image's age using fully customisable thresholds.
+- __Local Cache Comparison__
+  - Interrogates your local engine to see if the remote image is newer, identical, or older than your cached copy before downloading.
+- __Native macOS Compatibility__
+  - Auto-detects BSD `date` (default on macOS) vs GNU `date` to ensure robust epoch parsing without crashing.
+- __Resilient Logging__
+  - Plugs into an external logging framework if present, with a seamless standalone fallback mechanism.
 
 ---
 
@@ -24,13 +29,18 @@ A bash script designed for macOS and Unix environments to safely pull container 
 
 The script relies on a few common terminal utilities. Ensure they are installed on your Mac before execution:
 
-1. __`jq`__: Lightweight and flexible command-line JSON processor.
-2. __`curl`__: Used to query registry APIs.
-3. __`container` CLI wrapper__: The script invokes `container image inspect` and `container image pull`. Ensure `container` is aliased or symlinked to your actual container runtime (e.g., `docker`, `podman`, or `lima`).
+1. __`jq`__
+   - Lightweight and flexible command-line JSON processor.
+2. __`curl`__
+   - Used to query registry APIs.
+3. __`container` CLI wrapper__
+   - The script invokes `container image inspect` and `container image pull`.
+   - Ensure `container` is aliased or symlinked to your actual container runtime (e.g., `docker`, `podman`, or `lima`).
 
 #### Installation via Homebrew
 
 ```bash
 brew install jq curl
+```
 
 ---
