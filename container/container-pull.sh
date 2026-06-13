@@ -290,9 +290,9 @@ resolve_registry_reference "$IMAGE"
 
 log_info "Checking age of image ${REGISTRY_REF}..."
 
-WARN_DAYS_RED=7
-WARN_DAYS_ORANGE=30
-WARN_DAYS_YELLOW=365
+WARN_DAYS_RED="${WARN_DAYS_RED:-7}"
+WARN_DAYS_ORANGE="${WARN_DAYS_ORANGE:-30}"
+WARN_DAYS_YELLOW="${WARN_DAYS_YELLOW:-365}"
 
 # 1. Fetch remote image creation time epoch using orchestration handler
 CREATED_EPOCH=""
