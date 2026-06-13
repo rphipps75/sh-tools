@@ -41,16 +41,17 @@ LOGGING_LEVEL="${LOGGING_LEVEL:-2}"
 # Usage: $(_log_date)
 # Outputs the current UTC timestamp
 _log_date () {
-  if [ -n "${EPOCHREALTIME}" ]; then
-    printf "%(%%Y-%%m-%%d %%H:%%M:%%S)T.%s (UTC) " -1 "${EPOCHREALTIME#*.00}" | cut -c1-29
+  if [ -n "${EPOCHREALTIME}" ] && [[ "$EPOCHREALTIME" == *.* ]]; then
+    # Modern Bash environment path (works on newer Bash on macOS/Linux)
+    local micro="${EPOCHREALTIME#*.}"
+    local milli="${micro:0:3}"
+    printf "%(%%Y-%%m-%%d %%H:%%M:%%S)T.%s (UTC) " -1 "$milli"
+  elif [ "$(uname)" = "Darwin" ]; then
+    # Explicit macOS (Darwin) BSD date path - no literal .3N strings allowed
+    date -u +"%Y-%m-%d %H:%M:%S (UTC) "
   else
-    # Corrected macOS BSD date fallback check
-    if date +%N 2>&1 | grep -q 'N'; then
-      # macOS BSD date fallback - no millisecond precision available natively
-      date -u +"%Y-%m-%d %H:%M:%S (UTC) "
-    else
-      date -u +"%Y-%m-%d %H:%M:%S.%3N (UTC) "
-    fi
+    # Standard Linux/GNU date path
+    date -u +"%Y-%m-%d %H:%M:%S.%3N (UTC) "
   fi
 }
 
