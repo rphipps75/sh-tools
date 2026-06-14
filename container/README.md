@@ -5,7 +5,7 @@
 ---
 
 <details>
-  <summary>Container Pull Age Verifier (`container-pull.sh`)</summary>
+  <summary>Container Pull Age Verifier (container-pull.sh)</summary>
 
 ## Container Pull Age Verifier (`container-pull.sh`)
 
@@ -51,7 +51,7 @@ brew install jq curl
 </details>
 
 <details>
-  <summary>Container List Images (`container-image-list.sh`)</summary>
+  <summary>Container List Images (container-image-list.sh)</summary>
 
 ## Container List Images (`container-image-list.sh`)
 
@@ -60,7 +60,7 @@ List Apple container images sorted by repository and tag.
 </details>
 
 <details>
-  <summary>Container Run sh (`container-here-sh.sh`)</summary>
+  <summary>Container Run sh (container-here-sh.sh)</summary>
 
 ## Container Run sh(`container-here-sh.sh`)
 
