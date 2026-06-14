@@ -4,6 +4,9 @@
 
 ---
 
+<details>
+  <summary>Container Pull Age Verifier (`container-pull.sh`)</summary>
+
 ## Container Pull Age Verifier (`container-pull.sh`)
 
 A bash script designed for macOS and Unix environments to safely pull container images from remote registries. It acts as a protective gatekeeper by checking the age of an image before pulling it down, ensuring you do not accidentally pull broken "too fresh" builds or dangerously outdated images without manual confirmation.
@@ -44,3 +47,23 @@ brew install jq curl
 ```
 
 ---
+
+</details>
+
+<details>
+  <summary>Container List Images (`container-image-list.sh`)</summary>
+
+## Container List Images (`container-image-list.sh`)
+
+List Apple container images sorted by repository and tag.
+
+</details>
+
+<details>
+  <summary>Container Run sh (`container-here-sh.sh`)</summary>
+
+## Container Run sh(`container-here-sh.sh`)
+
+Run a sh shell inside an Apple container with the current directory mounted.
+
+</details>
