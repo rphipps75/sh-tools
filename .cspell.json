@@ -5,7 +5,13 @@
     "language": "en-GB",
     // words - list of words to be always considered correct
     "words": [
-        "milli"
+        "contrib",
+        "flavor",
+        "gsub",
+        "milli",
+        "newgrp",
+        "teardown",
+        "venv"
     ],
     "ignorePaths": [
         ".git",
